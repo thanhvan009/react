@@ -24,7 +24,9 @@ const renderPagination = (
   totalItems:number,
   currentPageIndex: number,
   fetchEmployeeList: Function) => {
+
   const totalPages = getTotalPages(totalItems, ITEM_PER_PAGE);
+
   let results = [];
   for (let i = 1; i <= totalPages; i++) {
     results.push(i);

@@ -43,33 +43,43 @@ import {
 
 const EmployeeManagement = () => {
   const { addToast } = useToasts();
-
+  // Notification for API errors
   const showErrorNotification = (text: string) =>
     addToast(text, {
       appearance: 'error',
       autoDismiss: true,
     });
-  
+  // Notification for Action successfully
   const showSuccessNotification = (text: string) =>
     addToast(text, {
       appearance: 'success',
       autoDismiss: true,
     });
 
+  // A Number of Employee of 1 page
   const [employeeList, setEmployeeList] = useState([]);
+  // All of employees
   const [total, setTotal] = useState(0);
   const [currentPageIndex, setCurrentPageIndex] = useState(1);
+  // Data of form edit / create employee
   const [formData, setFormData] = useState(initFormData);
+  // Origin Detail of an employee
   const [originDetailEmployee, setOriginDetailEmployee] = useState(initFormData);
+  // Store errors of fields when validate form
   const [errors, setErrors] = useState(initErrors);
+  // Loading for spinner when wait to the API response the data
   const [loading, setLoading] = useState(false);
+  // Open and Close the Popup
   const [isOpen, setIsOpen] = useState(false);
 
+  // Fetch employees in a page
   const fetchEmployeeList = (page = 1) => {
     setLoading(true);
     fetchListApi(page < 1 ? 1 : page)
       .then(res => {
+        // List employee per a page
         const list = _.get(res, 'data.list', []);
+        // Total All of the employee of all the page
         const total = _.get(res, 'data.total', 0);
         setCurrentPageIndex(page);
         setTotal(total);
@@ -77,6 +87,7 @@ const EmployeeManagement = () => {
         setLoading(false);
       })
       .catch((error) => {
+        // Notification error of API
         showErrorNotification(error.messageContent);
         setLoading(false);
       });
@@ -93,6 +104,7 @@ const EmployeeManagement = () => {
     setLoading(true);
     getDetailApi(id)
       .then(res => {
+        // Original infomation of a employee
         setOriginDetailEmployee(res.data);
         setFormData(res.data);
         setLoading(false);
@@ -109,9 +121,13 @@ const EmployeeManagement = () => {
       .then(res => {
         if (!_.isEmpty(res.data)) {
           showSuccessNotification(DELETED_SUCCESS);
+          // Current page, there is only an employee
+          // After deleled this employee =>
+          // Go to the previous page
           if (employeeList.length === 1) {
             fetchEmployeeList(currentPageIndex - 1);
           } else {
+            // Others case: keep being current page
             fetchEmployeeList(currentPageIndex);
           }
           setLoading(false);
@@ -123,12 +139,15 @@ const EmployeeManagement = () => {
       });
   };
 
+  // Get errors if email is not correct
   const checkEmail = (value: string) => {
+    // Error when Email is empty
     if (value.trim() === '')
       setErrors({
         ...errors,
         email: NOT_EMPTY('email')
       });
+    // Error when Email is not correct
     else {
       const isEmailCorrect = isCorrectEmail(value);
       setErrors({
@@ -145,10 +164,11 @@ const EmployeeManagement = () => {
       ...formData,
       [name]: value,
     });
-
+    // Get errors for email
     if (name === 'email') {
       checkEmail(value);
     } else {
+      // Other fields: name or position
       setErrors({
         ...errors,
         [name]: value.trim() ? '' : NOT_EMPTY(name)
@@ -159,6 +179,7 @@ const EmployeeManagement = () => {
   const submitForm = () => {
     const id = _.get(formData, 'id', '');
     if (id) {
+      // No changes when edit a employee
       if (_.isEqual(originDetailEmployee, formData)) {
         addToast(NO_DATA_CHANGE, {
           appearance: 'warning',
@@ -167,7 +188,7 @@ const EmployeeManagement = () => {
         return;
       }
     }
-
+    // Store errors for form fields
     let errorsTemp: errorsType = {};
     for (let key of keysForm) {
       if (key === 'email') {
@@ -182,17 +203,21 @@ const EmployeeManagement = () => {
 
     setErrors(errorsTemp);
 
+    // Check if or not have any errors
     const isErrors = Object.values(errorsTemp).some((val) => val !== '');
     if (isErrors)
       return;
 
     const saveEmp = () => {
       setLoading(true);
+      // Edit an empoyloyee
       if (id) {
         editItemApi(formData)
           .then(res => {
             if (!_.isEmpty(res.data)) {
+              // Show notification if edited successfully
               showSuccessNotification(EDITED_SUCCESS);
+              // Get latest employee list in the CURRENT page
               fetchEmployeeList(currentPageIndex);
               setLoading(false);
               closeEmployee();
@@ -203,15 +228,18 @@ const EmployeeManagement = () => {
             setLoading(false);
           });
       } else {
+        // New employee
         createItemApi(formData)
           .then(res => {
             if (!_.isEmpty(res.data)) {
               showSuccessNotification(CREATED_SUCCESS);
               setLoading(false);
               const lastPageIndex = getTotalPages(total, ITEM_PER_PAGE);
+              // Create a new employee that will be showed the next page
               if (total % ITEM_PER_PAGE === 0) {
                 fetchEmployeeList(lastPageIndex + 1);
               } else {
+                // Create a new employee that will be showed the current page
                 fetchEmployeeList(lastPageIndex);
               }
               closeEmployee();
@@ -226,11 +254,12 @@ const EmployeeManagement = () => {
     saveEmp();
   };
 
+  // CLOSE THE POPUP + RESET BACK INIT DATA
   const closeEmployee = () => {
-    setIsOpen(false);
-    setFormData(initFormData);
-    setErrors(initErrors);
-    setLoading(false);
+    setIsOpen(false); // Turn off Popup
+    setFormData(initFormData); // Reset data of form
+    setErrors(initErrors); // Reset the errors
+    setLoading(false); // Turn off Loading
   };
 
   return (

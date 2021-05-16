@@ -49,17 +49,22 @@ apiClient.interceptors.response.use(
   },
 );
 
+// API fetch Employee List 
 export const fetchListApi = (page: number) =>
   apiClient.get(`${BASE_URL}/?page=${page}&limit=5`);
 
+// API get Detail of An Employee 
 export const getDetailApi = (id: string) =>
   apiClient.get(`${BASE_URL}/${id}`);
 
+// API Create A new Employee 
 export const createItemApi = (data: formType) =>
   apiClient.post(BASE_URL, data);
 
+// API Update An Employee 
 export const editItemApi = (data: formType) =>
   apiClient.put(`${BASE_URL}/${data.id}`, data);
 
+// API Deleted An Employee 
 export const deleteItemApi = (id: string) =>
   apiClient.delete(`${BASE_URL}/${id}`);
