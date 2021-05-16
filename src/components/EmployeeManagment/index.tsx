@@ -235,11 +235,12 @@ const EmployeeManagement = () => {
               showSuccessNotification(CREATED_SUCCESS);
               setLoading(false);
               const lastPageIndex = getTotalPages(total, ITEM_PER_PAGE);
-              // Create a new employee that will be showed the next page
+              // If the number of page increases 1 after create an employee
+              // This new employee will be displayed the next page
               if (total % ITEM_PER_PAGE === 0) {
                 fetchEmployeeList(lastPageIndex + 1);
               } else {
-                // Create a new employee that will be showed the current page
+                // Go to last page after created a new employee
                 fetchEmployeeList(lastPageIndex);
               }
               closeEmployee();
