@@ -16,7 +16,16 @@ export const StyledEmployeeTable = styled.div`
     font-size: 14px;
 
     th {
-      width: 25%;
+      &.emp-name,
+      &.emp-postion {
+        width: 20%;
+      }
+      &.emp-email {
+        width: 25%;
+      }
+      &.emp-action {
+        width: 35%;
+      }
     }
 
     th, td {

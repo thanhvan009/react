@@ -1,0 +1,25 @@
+.app {
+  background-color: #f0f2f5;
+}
+
+.center {
+  margin: 0 auto;
+}
+
+.mr-15 {
+  margin-right: 15px;
+}
+
+.mx-5 {
+  margin-right: 5px;
+  margin-left: 5px;
+}
+
+.my-5 {
+  margin-top: 5px;
+  margin-right: 5px;
+}
+
+.container {
+  max-width: 1200px;
+}

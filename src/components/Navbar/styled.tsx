@@ -1,24 +1,14 @@
 import styled from 'styled-components';
 
-export const StyledSideBar = styled.ul`
-  position: fixed;
+export const StyledNavbar = styled.ul`
   display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 100%;
-  width: 200px;
-  top: 0;
-  left: 0;
-  border-right: 1px solid rgb(220, 224, 233);
+  max-height: 65px;
   background-color: #dadada;
   font-weight: bold;
-  padding: 50px 20px;
+  padding: 20px 50px;
   margin: 0;
-  display: flex;
-  flex-direction: column;
-  align-items: baseline;
+  align-items: center;
   list-style-type: none;
-  justify-content: left;
 
   .name-app {
     text-transform: uppercase;
@@ -27,7 +17,7 @@ export const StyledSideBar = styled.ul`
   }
 
   li {
-    margin-bottom: 15px;
+    margin-right: 30px;
   }
 
   a {

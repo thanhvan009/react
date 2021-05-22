@@ -3,9 +3,13 @@ import Modal from 'react-modal';
 
 export const StyledEmployeeManagement = styled.div`
   width: 80%;
+  margin: 0 auto;
   .new-wrap {
     text-align: right;
     padding-bottom: 30px;
+  }
+  @media (max-width: 767px) {
+    width: 100%;
   }
 `;
 

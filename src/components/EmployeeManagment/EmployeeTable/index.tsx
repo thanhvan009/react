@@ -78,12 +78,12 @@ const EmployeeTable = (props: IEmployeeTableProps) => {
                 <td className="td td-position">{position}</td>
                 <td className="td td-action">
                   <Button
-                    className="primary small mr-15"
+                    className="primary small m-10"
                     onClick={() => getDetailEmployee(id)}
                     text="Edit"
                   />
                   <Button
-                    className="danger small"
+                    className="danger small mx-5 my-5"
                     onClick={() => deleteEmployee(id)}
                     text="Delete"
                   />

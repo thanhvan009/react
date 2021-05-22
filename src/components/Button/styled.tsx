@@ -18,7 +18,7 @@ export const StyledButton = styled.button`
   }
 
   &.small {
-    min-width: 70px;
+    min-width: 50px;
     font-size: 13px;
     height: 25px;
   }

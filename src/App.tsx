@@ -1,8 +1,7 @@
-import React from 'react';
-import './App.css';
+import './common.css';
 import Counter from './components/Counter/index';
 import EmployeeManagement from './components/EmployeeManagment/index';
-import SideBar from './components/SideBar/index';
+import Navbar from './components/Navbar/index';
 import {
   BrowserRouter as Router,
   Switch,
@@ -18,10 +17,10 @@ function App() {
       autoDismissTimeout={1500}
       placement="top-right"
     >
-      <div>
+      <div className="app">
         <Router>
-          <div>
-            <SideBar />
+          <div className="container center">
+            <Navbar />
             <StyledMainContent>
               <Switch>
                 <Route exact path="/">

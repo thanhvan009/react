@@ -1,12 +1,11 @@
-import React from 'react';
 import {
   NavLink
 } from 'react-router-dom';
-import { StyledSideBar } from './styled';
+import { StyledNavbar } from './styled';
 
-function SideBar() {
+function Navbar() {
   return (
-    <StyledSideBar>
+    <StyledNavbar>
       <li className="name-app">HOMEWORK</li>
       <li>
         <NavLink exact to="/">Counter</NavLink>
@@ -14,8 +13,8 @@ function SideBar() {
       <li>
         <NavLink to="/employee-management">Employee</NavLink>
       </li>
-    </StyledSideBar>
+    </StyledNavbar>
   );
 }
 
-export default SideBar;
+export default Navbar;

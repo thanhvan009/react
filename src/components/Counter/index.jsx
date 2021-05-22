@@ -5,7 +5,7 @@ import Button from './../Button/index'
 const Counter = () => {
   const [clicks, setClicks] = useState(0);
   return (
-    <CounterStyled>
+    <CounterStyled className="counter-wrap">
       <h1 className="title">
         Counter:
         <span className="count">{clicks}</span>
